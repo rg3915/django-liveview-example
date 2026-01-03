@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <!-- Say Hello Example -->
+    <section style="margin-bottom: 40px; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+        <h2>Exemplo 1: Say Hello (individual)</h2>
+        <p>Este exemplo atualiza apenas o seu navegador.</p>
+
+        <form>
+            <input type="text" name="name" placeholder="Enter your name">
+            <button
+                data-liveview-function="say_hello"
+                data-action="click->page#run"
+                type="button">
+                Say Hello
+            </button>
+        </form>
+
+        <div id="greeting">
+            <h1>Hello, World!</h1>
+        </div>
+    </section>
+
+    <!-- Real-time Chat Example -->
+    <section style="padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+        <h2>Exemplo 2: Chat em Tempo Real (broadcast)</h2>
+        <p>Este chat é sincronizado entre todos os navegadores conectados!</p>
+
+        <div id="chat-messages" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; background: #f9f9f9; border-radius: 4px;">
+            <p style="color: #888; text-align: center;">Nenhuma mensagem ainda. Seja o primeiro a enviar!</p>
+        </div>
+
+        <form>
+            <input type="text" name="username" placeholder="Seu nome" style="margin-bottom: 10px;">
+            <input type="text" name="message" placeholder="Digite sua mensagem..." style="margin-bottom: 10px;">
+            <button
+                data-liveview-function="send_message"
+                data-action="click->page#run"
+                type="button">
+                Enviar Mensagem
+            </button>
+        </form>
+    </section>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    // Auto-scroll para o final quando novas mensagens chegarem
+    const chatMessages = document.getElementById('chat-messages');
+
+    // Função para fazer scroll para o final
+    function scrollToBottom() {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Observer para detectar quando novas mensagens são adicionadas
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.addedNodes.length) {
+                scrollToBottom();
+            }
+        });
+    });
+
+    // Configurar o observer para observar mudanças no chat-messages
+    observer.observe(chatMessages, {
+        childList: true,
+        subtree: true
+    });
+
+    // Limpar campo de mensagem após enviar
+    const sendButton = document.querySelector('button[data-liveview-function="send_message"]');
+    const messageInput = document.querySelector('input[name="message"]');
+
+    sendButton.addEventListener('click', function() {
+        // Aguarda um pequeno delay para garantir que a mensagem foi enviada
+        setTimeout(() => {
+            messageInput.value = '';
+            messageInput.focus();
+        }, 100);
+    });
+
+    // Enviar mensagem ao pressionar Enter
+    messageInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Previne o comportamento padrão do Enter
+            sendButton.click();     // Simula o clique no botão
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,11 @@
+asgiref==3.11.0
+channels==4.3.2
+channels_redis==4.3.0
+daphne==4.2.1
+django-extensions==4.1
+django-liveview==2.1.8
+Django==6.0
+msgpack==1.1.2
+python-decouple==3.8
+redis==7.1.0
+sqlparse==0.5.5
