@@ -4,6 +4,10 @@
 
 Este projeto demonstra o uso do **Django LiveView**, um framework Python que permite construir aplicações web em tempo real (SPAs) usando apenas Django e WebSockets, sem necessidade de frameworks JavaScript separados.
 
+![](https://raw.githubusercontent.com/Django-LiveView/starter-template/main/brand_assets/github%20social%20preview.jpg)
+
+Imagem do repo original https://github.com/Django-LiveView/liveview
+
 ### O que é Django LiveView?
 
 Django LiveView utiliza a tecnologia **HTML over the Wire**, onde:
@@ -41,8 +45,8 @@ Este projeto implementa **dois exemplos práticos**:
 
 ```bash
 # Clone o projeto
-git clone <seu-repositorio>
-cd django_liveview
+git clone https://github.com/rg3915/django-liveview-example.git
+cd django-liveview-example
 
 # Crie e ative o ambiente virtual
 python -m venv .venv
@@ -56,7 +60,13 @@ pip install -r requirements.txt
 
 ### Passo 2: Configure as Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz do projeto:
+Rode
+
+```
+python contrib/env_gen.py
+```
+
+Ou crie um arquivo `.env` na raiz do projeto:
 
 ```env
 DEBUG=True
